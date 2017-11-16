@@ -6,6 +6,7 @@ Os projetos foram criados no NetBeans, utilizando JSF 2.2 na camada web e Eclips
 
 Execute o seguinte script para criar as sequências, tabelas e inserir alguns registros:
 
+```
 CREATE SEQUENCE DOCE_SEQ INCREMENT BY 1 START WITH 1 NOCACHE NOCYCLE;
 
 -- tabela para representar um doce.
@@ -34,6 +35,7 @@ INSERT INTO Doce (id, descricao, valor) values (DOCE_SEQ.nextval(), 'Cupcake', 3
 INSERT INTO Doce (id, descricao, valor) values (DOCE_SEQ.nextval(), 'Mini Pão de Mel', 0.75);
 INSERT INTO Doce (id, descricao, valor) values (DOCE_SEQ.nextval(), 'Bolo', 20);
 INSERT INTO Doce (id, descricao, valor) values (DOCE_SEQ.nextval(), 'Pão de Mel', 2.5);
+```
 
 ## Configurando o servidor de aplicações web GlassFish
 
