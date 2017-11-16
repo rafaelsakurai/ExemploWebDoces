@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:define name="cabecalho">
+   <h:outputText id="titulo" value="Web Doces - Cadastro de Doce" styleClass="titulo"/>
+  </ui:define>
+
+  <ui:define name="conteudo">
+    <h:panelGrid id="relatorio" columns="3">
+      <h:outputText id="periodoInicioTexto" value="Inicio: "/>
+      <h:inputText id="periodoInicio" value="#{vendaMB.inicioPeriodo}">
+        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+      </h:inputText>
+      <h:outputText id="padraoPeriodoInicioTexto" value="dd/MM/yyyy HH:mm"/>
+      <h:outputText id="periodoFimTexto" value="Fim: "/>
+      <h:inputText id="periodoFim" value="#{vendaMB.fimPeriodo}">
+        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+      </h:inputText>
+      <h:outputText id="padraoPeriodoFimTexto" value="dd/MM/yyyy HH:mm"/>
+      <h:commandButton id="pesquisar" value="Pesquisar" action="#{vendaMB.pesquisar}">
+        <f:ajax execute="relatorio" render=":form:vendas msg"/>
+      </h:commandButton>
+    </h:panelGrid>
+    <h:messages id="msg" errorStyle="color: red"/>
+
+    <h:dataTable id="vendas" value="#{vendaMB.relatorio}" var="venda" styleClass="tabela">
+      <h:column>
+        <f:facet name="header">
+          <h:outputText id="descricaoColumn" value="venda"/>
+        </f:facet>
+        <h:outputText id="descricaoValor" value="#{venda.id}"/>
+        <f:facet name="footer">
+          Total
+        </f:facet>
+      </h:column>
+      <h:column>
+        <f:facet name="header">
+          <h:outputText id="precoColumn" value="Valor total"/>
+        </f:facet>
+        <h:outputText id="precoValor" value="#{venda.valorTotal}"/>
+        <f:facet name="footer">
+          <h:outputText id="valorTotal" value="#{vendaMB.relatorioValorTotal}">
+            <f:convertNumber type="currency" minFractionDigits="2" maxFractionDigits="2" currencySymbol="R$"/>
+          </h:outputText>
+        </f:facet>
+      </h:column>
+    </h:dataTable>
+  </ui:define>
+
+</ui:composition>

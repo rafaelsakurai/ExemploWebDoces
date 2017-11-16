@@ -1,0 +1,17 @@
+CREATE SEQUENCE DOCE_SEQ INCREMENT BY 1 START WITH 1 NOCACHE NOCYCLE;
+
+-- tabela para representar um doce.
+CREATE TABLE Doce (	id         NUMBER(5)     NOT NULL PRIMARY_KEY,	descricao  VARCHAR2(100) NOT NULL,	valor      NUMBER(10,2)  NOT NULL);
+
+CREATE SEQUENCE VENDA_SEQ INCREMENT BY 1 START WITH 1 NOCACHE NOCYCLE;
+
+-- tabela para representar uma venda.
+CREATE TABLE Venda (	id         NUMBER(5)     NOT NULL PRIMARY_KEY,	data       DATE          NOT NULL,	valorTotal NUMBER(10,2)  NOT NULL);
+
+-- tabela para associar os doces que fazem parte de uma venda.
+CREATE TABLE Venda_Doce (	venda_id   NUMBER(5)     NOT NULL,	doce_id    NUMBER(5)     NOT NULL);
+
+INSERT INTO Doce (id, descricao, valor) values (DOCE_SEQ.nextval(), 'Cupcake', 3.5);
+INSERT INTO Doce (id, descricao, valor) values (DOCE_SEQ.nextval(), 'Mini Pão de Mel', 0.75);
+INSERT INTO Doce (id, descricao, valor) values (DOCE_SEQ.nextval(), 'Bolo', 20);
+INSERT INTO Doce (id, descricao, valor) values (DOCE_SEQ.nextval(), 'Pão de Mel', 2.5);

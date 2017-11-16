@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+  <h:head>
+    <title>WebDoces</title>
+    <style>
+      table {
+        background:#D3E4E5;
+        border:1px solid black;
+        border-collapse:collapse;
+        color:#fff;
+        font:normal 12px verdana, arial, helvetica, sans-serif;
+      }
+      td, th {
+        color:#363636;
+        padding:.4em;
+        text-align: center;
+      }
+      tbody tr:hover {
+        background:#99BCBF;
+        border:1px solid #03476F;
+        color:#000000;
+      }
+      .estiloColuna {
+        text-align: center;
+        width: 50%;
+      }
+      .estiloCabecalho {
+        font:bold 20px verdana, arial, helvetica, sans-serif;
+        text-align: center;
+      }
+    </style>
+  </h:head>
+  <h:body>
+    <h:form id="form">
+      <h:panelGrid columns="2" columnClasses="estiloColuna; estiloColuna" style="width: 100%">
+        <h:outputText id="webDoces" value="Web Doces" styleClass="estiloCabecalho"/>
+        <h:outputText id="carrinho" value="Carrinho de Compras" styleClass="estiloCabecalho"/>
+
+        <h:dataTable id="tabela" value="#{vendaMB.listaDoces}" var="doce" style="width: 100%">
+          <h:column>
+            <h:graphicImage value="/imagens/#{doce.id}.jpg" height="70" width="70"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">
+              Doce
+            </f:facet>
+            <h:outputText id="desc" value="#{doce.descricao}"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">
+              Valor
+            </f:facet>
+            <h:outputText id="valor" value="#{doce.valor}">
+              <f:convertNumber type="currency" minFractionDigits="2" maxFractionDigits="2" currencySymbol="R$"/>
+            </h:outputText>
+          </h:column>
+          <h:column>
+            <h:commandButton id="selecionar" value="Selecionar" action="#{vendaMB.selecionar}">
+              <f:ajax execute="@form" render=":form:selecionados" />
+            </h:commandButton>
+          </h:column>
+        </h:dataTable>
+        <h:dataTable id="selecionados" value="#{vendaMB.selecionados}" var="doce" style="width: 100%">
+          <h:column>
+            <f:facet name="header">
+              Doce
+            </f:facet>
+            <h:outputText id="descSelecionado" value="#{doce.descricao}"/>
+            <f:facet name="footer">
+              Total
+            </f:facet>
+          </h:column>
+          <h:column>
+            <f:facet name="header">
+              Valor
+            </f:facet>
+            <h:outputText id="valorSelecionado" value="#{doce.valor}">
+              <f:convertNumber type="currency" minFractionDigits="2" maxFractionDigits="2" currencySymbol="R$"/>
+            </h:outputText>
+            <f:facet name="footer">
+              <h:outputText id="valorTotal" value="#{vendaMB.valorTotal}">
+                <f:convertNumber type="currency" minFractionDigits="2" maxFractionDigits="2" currencySymbol="R$"/>
+              </h:outputText>
+            </f:facet>
+          </h:column>
+        </h:dataTable>
+      </h:panelGrid>
+      <h:panelGrid columns="2" style="width: 100%; text-align: right">
+        <h:commandButton id="finalizarVenda" value="Finalizar Venda" action="#{vendaMB.finalizarVenda}"/>
+      </h:panelGrid>
+    </h:form>
+  </h:body>
+</html>
+

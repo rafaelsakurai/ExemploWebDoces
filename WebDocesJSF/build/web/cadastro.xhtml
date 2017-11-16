@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:define name="cabecalho">
+   <h:outputText id="titulo" value="Web Doces - Cadastro de Doce" styleClass="titulo"/>
+  </ui:define>
+
+  <ui:define name="conteudo">
+    <h:panelGrid id="cadastro" columns="2">
+      <h:outputText id="descricaoTexto" value="Descricao"/>
+      <h:inputText id="descricao" value="#{doceMB.doce.descricao}"/>
+      <h:outputText id="valorTexto" value="Preço"/>
+      <h:inputText id="valor" value="#{doceMB.doce.valor}"/>
+      <h:commandButton id="salvar" value="Salvar" action="#{doceMB.cadastrar}">
+        <f:ajax execute="cadastro" render=":form:doces cadastro msg"/>
+      </h:commandButton>
+    </h:panelGrid>
+    <h:messages id="msg" errorStyle="color: red"/>
+
+    <h:dataTable id="doces" value="#{doceMB.doces}" var="doce" styleClass="tabela">
+      <h:column>
+        <f:facet name="header">
+          <h:outputText id="descricaoColumn" value="Descrição"/>
+        </f:facet>
+        <h:outputText id="descricaoValor" value="#{doce.descricao}"/>
+      </h:column>
+      <h:column>
+        <f:facet name="header">
+          <h:outputText id="precoColumn" value="Preço"/>
+        </f:facet>
+        <h:outputText id="precoValor" value="#{doce.valor}"/>
+      </h:column>
+      <h:column>
+        <f:facet name="header">
+          <h:outputText id="removerColumn" value="Remover"/>
+        </f:facet>
+        <h:commandButton id="remover" value="Remover" action="#{doceMB.remover}">
+          
+        </h:commandButton>
+      </h:column>
+    </h:dataTable>
+  </ui:define>
+
+</ui:composition>
